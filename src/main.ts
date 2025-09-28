@@ -40,6 +40,7 @@ async function bootstrap() {
   //    This allows frontend apps to call the API.
   app.enableCors();
 
+  // Apply the filter globally
   app.useGlobalFilters(new AllExceptionsFilter());
   // 7. Start listening on a port (default: 5000 or from environment variable)
   await app.listen(process.env.PORT ?? 5000);
