@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { UserModule } from 'src/user/user.module';
@@ -15,6 +15,7 @@ import { BcryptProvider } from './providers/bcrypt.provider';
       useClass: BcryptProvider,
     },
   ],
-  imports: [PrismaModule, UserModule],
+  imports: [PrismaModule, forwardRef(() => UserModule)],
+  exports: [HashingProvider],
 })
 export class AuthModule {}

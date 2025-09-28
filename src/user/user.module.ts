@@ -1,4 +1,5 @@
 import {
+  forwardRef,
   MiddlewareConsumer,
   Module,
   NestModule,
@@ -8,11 +9,13 @@ import { UserController } from './user.controller';
 import { UserService } from './providers/user.service';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { ClientInfoMiddleware } from 'src/common/middleware/client-info.middleware';
+import { CreateUserProvider } from './providers/create-user.provider';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  imports: [PrismaModule], // Import Prisma so UserService can use database
+  imports: [PrismaModule, forwardRef(() => AuthModule)], // Import Prisma so UserService can use database
   controllers: [UserController], // Register UserController to handle routes
-  providers: [UserService], // Register UserService as a provider
+  providers: [UserService, CreateUserProvider], // Register UserService as a provider
 })
 export class UserModule implements NestModule {
   // UserModule implements NestModule so we can configure middleware inside it.
