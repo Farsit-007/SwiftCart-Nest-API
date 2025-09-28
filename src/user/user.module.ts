@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { UserController } from './user.controller';
 import { UserService } from './providers/user.service';
 import { PrismaModule } from 'src/prisma/prisma.module';
@@ -11,6 +16,8 @@ import { ClientInfoMiddleware } from 'src/common/middleware/client-info.middlewa
 })
 export class UserModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(ClientInfoMiddleware).forRoutes('users');
+    consumer
+      .apply(ClientInfoMiddleware)
+      .forRoutes({ path: 'users/register', method: RequestMethod.POST });
   }
 }
