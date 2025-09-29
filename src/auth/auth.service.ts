@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from 'src/user/providers/user.service';
+import { UserService } from 'src/user/user.service';
 import { SignDto } from './dtos/sign.dto';
 
 @Injectable()

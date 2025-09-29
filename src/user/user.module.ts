@@ -6,7 +6,7 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { UserController } from './user.controller';
-import { UserService } from './providers/user.service';
+import { UserService } from './user.service';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { ClientInfoMiddleware } from 'src/common/middleware/client-info.middleware';
 import { CreateUserProvider } from './providers/create-user.provider';
