@@ -22,7 +22,7 @@ export class SignInProvider {
       signInDto.password,
       user.password,
     );
-    if (isPasswordMatched) {
+    if (!isPasswordMatched) {
       throw new UnauthorizedException('Invalid Credentials');
     }
     // Send Confirmation

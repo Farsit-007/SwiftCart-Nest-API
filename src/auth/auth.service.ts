@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
 import { SignDto } from './dtos/sign.dto';
+import { SignInProvider } from './providers/sign-in.provider';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly signInProvider: SignInProvider) {}
 
-  public signIn(signInDto: SignDto) {
-  
+  public async signIn(signInDto: SignDto) {
+    return await this.signInProvider.signIn(signInDto);
   }
 }
