@@ -13,6 +13,7 @@ export class SignInProvider {
   public async signIn(signInDto: SignDto) {
     // Find the user using email ID
     const user = await this.userService.findOneByEmail(signInDto.email);
+
     // Throw an exception user not found
     if (!user) {
       throw new UnauthorizedException('Invalid Credentials');
