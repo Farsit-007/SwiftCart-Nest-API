@@ -16,6 +16,7 @@ import { AuthModule } from 'src/auth/auth.module';
   imports: [PrismaModule, forwardRef(() => AuthModule)], // Import Prisma so UserService can use database
   controllers: [UserController], // Register UserController to handle routes
   providers: [UserService, CreateUserProvider], // Register UserService as a provider
+  exports: [UserService],
 })
 export class UserModule implements NestModule {
   // UserModule implements NestModule so we can configure middleware inside it.
