@@ -46,8 +46,7 @@ export class SignInProvider {
         expiresIn: this.jwtConfiguration.accessTokenTtl,
       },
     );
-
-    // Send Confirmation
+   
     return {
       accessToken,
     };
