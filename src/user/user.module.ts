@@ -12,9 +12,17 @@ import { ClientInfoMiddleware } from 'src/common/middleware/client-info.middlewa
 import { CreateUserProvider } from './providers/create-user.provider';
 import { AuthModule } from 'src/auth/auth.module';
 import { FindOneUserByEmailProvider } from './providers/find-one-user-by-email.provider';
+import { ConfigModule } from '@nestjs/config';
+import jwtConfig from 'src/auth/config/jwt.config';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [PrismaModule, forwardRef(() => AuthModule)], // Import Prisma so UserService can use database
+  imports: [
+    PrismaModule,
+    forwardRef(() => AuthModule),
+    ConfigModule.forFeature(jwtConfig),
+    JwtModule.registerAsync(jwtConfig.asProvider()),
+  ], // Import Prisma so UserService can use database
   controllers: [UserController], // Register UserController to handle routes
   providers: [UserService, CreateUserProvider, FindOneUserByEmailProvider], // Register UserService as a provider
   exports: [UserService],
