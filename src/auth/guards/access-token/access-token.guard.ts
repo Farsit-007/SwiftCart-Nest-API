@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
   CanActivate,
   ExecutionContext,
@@ -8,7 +10,6 @@ import {
 import type { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import { Observable } from 'rxjs';
 import jwtConfig from 'src/auth/config/jwt.config';
 import { REQUEST_USER_KEY } from 'src/auth/constant/auth.constant';
 
@@ -17,28 +18,31 @@ export class AccessTokenGuard implements CanActivate {
   constructor(
     private readonly jwtService: JwtService,
     @Inject(jwtConfig.KEY)
-    private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
+    private readonly jwtConfiguartion: ConfigType<typeof jwtConfig>,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     // Extract the request from the execution context
-    const request = context.switchToHttp().getRequest();
+    const request = context.switchToHttp().getRequest<Request>();
     // Extract the token from header
     const token = this.extractRequestFromHeader(request);
     // Validate the token
     if (!token) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Token not found');
     }
     try {
       const payload = await this.jwtService.verifyAsync(
         token,
-        this.jwtConfiguration,
+        this.jwtConfiguartion,
       );
       request[REQUEST_USER_KEY] = payload;
-    } catch (error) {}
+    } catch {
+      throw new UnauthorizedException('Invalid or expired token');
+    }
+
     return true;
   }
-  private extractRequestFromHeader(request: Request): string | undefined {
+  private extractRequestFromHeader(request: Request) {
     const [_, token] = request.headers.authorization?.split(' ') ?? [];
     return token;
   }
