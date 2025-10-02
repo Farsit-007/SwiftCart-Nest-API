@@ -11,4 +11,10 @@ export class AuthController {
   public async signIn(@Body() signInDto: SignDto) {
     return this.authService.signIn(signInDto);
   }
+
+  @Post('refresh-token')
+  @HttpCode(HttpStatus.OK)
+  public async refreshToken(@Body() signInDto: SignDto) {
+    return this.authService.signIn(signInDto);
+  }
 }

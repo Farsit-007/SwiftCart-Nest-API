@@ -10,6 +10,7 @@ import { ConfigModule } from '@nestjs/config';
 import jwtConfig from './config/jwt.config';
 import { JwtModule } from '@nestjs/jwt';
 import { GenerateTokenProvider } from './providers/generate-token.provider';
+import { RefreshTokensProvider } from './providers/refresh-tokens.provider';
 
 @Module({
   controllers: [AuthController],
@@ -21,6 +22,7 @@ import { GenerateTokenProvider } from './providers/generate-token.provider';
     },
     SignInProvider,
     GenerateTokenProvider,
+    RefreshTokensProvider,
   ],
   imports: [
     PrismaModule,
