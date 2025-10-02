@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import jwtConfig from '../config/jwt.config';
 import type { ConfigType } from '@nestjs/config';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class GenerateTokenProvider {
@@ -23,5 +24,20 @@ export class GenerateTokenProvider {
         expiresIn: expiresIn,
       },
     );
+  }
+
+  public async generateTokens(user: User) {
+    const [accessToken, refreshToken] = await Promise.all([
+      this.signToken(user.id, this.jwtConfiguration.accessTokenTtl, {
+        email: user.email,
+        role: user.role,
+      }),
+
+      this.signToken(user.id, this.jwtConfiguration.refreshTokenTtl),
+    ]);
+    return {
+      accessToken,
+      refreshToken,
+    };
   }
 }
