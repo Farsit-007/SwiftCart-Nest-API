@@ -13,7 +13,9 @@ export class UserService {
     private readonly findOneUserByIdProvider: FindOneByIdProvider,
   ) {}
 
-  public async createrUser(createUserDto: CreateUserDto): Promise<User> {
+  public async createrUser(
+    createUserDto: CreateUserDto,
+  ): Promise<Omit<User, 'password'>> {
     return this.createUserProvider.createrUser(createUserDto);
   }
 

@@ -10,7 +10,10 @@ export class CreateUserProvider {
     private readonly prisma: PrismaService,
     private readonly hashingProvider: HashingProvider,
   ) {}
-  public async createrUser(createUserDto: CreateUserDto): Promise<User> {
+
+  public async createrUser(
+    createUserDto: CreateUserDto,
+  ): Promise<Omit<User, 'password'>> {
     const user = await this.prisma.user.findUnique({
       where: {
         email: createUserDto.email,
@@ -25,6 +28,9 @@ export class CreateUserProvider {
         password: await this.hashingProvider.hashingPassword(
           createUserDto.password,
         ),
+      },
+      omit: {
+        password: true,
       },
     });
   }
