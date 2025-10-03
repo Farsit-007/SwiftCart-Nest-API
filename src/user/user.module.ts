@@ -12,11 +12,12 @@ import { ClientInfoMiddleware } from 'src/common/middleware/client-info.middlewa
 import { CreateUserProvider } from './providers/create-user.provider';
 import { AuthModule } from 'src/auth/auth.module';
 import { FindOneUserByEmailProvider } from './providers/find-one-user-by-email.provider';
+import { FindOneByIdProvider } from './providers/find-one-by-id.provider';
 
 @Module({
   imports: [PrismaModule, forwardRef(() => AuthModule)], // Import Prisma so UserService can use database
   controllers: [UserController], // Register UserController to handle routes
-  providers: [UserService, CreateUserProvider, FindOneUserByEmailProvider], // Register UserService as a provider
+  providers: [UserService, CreateUserProvider, FindOneUserByEmailProvider, FindOneByIdProvider], // Register UserService as a provider
   exports: [UserService],
 })
 export class UserModule implements NestModule {

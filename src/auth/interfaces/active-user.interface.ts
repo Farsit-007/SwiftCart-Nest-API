@@ -1,7 +1,7 @@
 import { UserRole } from '@prisma/client';
 
 export interface ActiveUserInterface {
-  id: number;
+  id: string;
   email: string;
   role: UserRole;
 }
