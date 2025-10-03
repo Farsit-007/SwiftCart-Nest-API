@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AllExceptionsFilter } from './common/filter/all-exceptions.filter';
+import { ResponseInterceptor } from './common/interceptors/response.interceptor.ts/response.interceptor.ts.interceptor';
 
 // ✅ Main entry point for the NestJS application
 async function bootstrap() {
@@ -42,6 +43,7 @@ async function bootstrap() {
 
   // Apply the filter globally
   app.useGlobalFilters(new AllExceptionsFilter());
+  app.useGlobalInterceptors(new ResponseInterceptor());
   // 7. Start listening on a port (default: 5000 or from environment variable)
   await app.listen(process.env.PORT ?? 5000);
 }
