@@ -13,11 +13,24 @@ import { CreateUserProvider } from './providers/create-user.provider';
 import { AuthModule } from 'src/auth/auth.module';
 import { FindOneUserByEmailProvider } from './providers/find-one-user-by-email.provider';
 import { FindOneByIdProvider } from './providers/find-one-by-id.provider';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
+import jwtConfig from 'src/auth/config/jwt.config';
 
 @Module({
-  imports: [PrismaModule, forwardRef(() => AuthModule)], // Import Prisma so UserService can use database
+  imports: [
+    PrismaModule,
+    forwardRef(() => AuthModule),
+    ConfigModule.forFeature(jwtConfig),
+    JwtModule.registerAsync(jwtConfig.asProvider()),
+  ], // Import Prisma so UserService can use database
   controllers: [UserController], // Register UserController to handle routes
-  providers: [UserService, CreateUserProvider, FindOneUserByEmailProvider, FindOneByIdProvider], // Register UserService as a provider
+  providers: [
+    UserService,
+    CreateUserProvider,
+    FindOneUserByEmailProvider,
+    FindOneByIdProvider,
+  ], // Register UserService as a provider
   exports: [UserService],
 })
 export class UserModule implements NestModule {

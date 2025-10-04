@@ -11,6 +11,7 @@ import jwtConfig from './config/jwt.config';
 import { JwtModule } from '@nestjs/jwt';
 import { GenerateTokenProvider } from './providers/generate-token.provider';
 import { RefreshTokensProvider } from './providers/refresh-tokens.provider';
+import { RolesGuard } from './guards/auth/roles.guard';
 
 @Module({
   controllers: [AuthController],
@@ -23,6 +24,7 @@ import { RefreshTokensProvider } from './providers/refresh-tokens.provider';
     SignInProvider,
     GenerateTokenProvider,
     RefreshTokensProvider,
+    RolesGuard,
   ],
   imports: [
     PrismaModule,
@@ -30,6 +32,6 @@ import { RefreshTokensProvider } from './providers/refresh-tokens.provider';
     ConfigModule.forFeature(jwtConfig),
     JwtModule.registerAsync(jwtConfig.asProvider()),
   ],
-  exports: [HashingProvider],
+  exports: [HashingProvider, RolesGuard, JwtModule],
 })
 export class AuthModule {}

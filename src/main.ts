@@ -44,6 +44,7 @@ async function bootstrap() {
   // Apply the filter globally
   app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalInterceptors(new ResponseInterceptor());
+
   // 7. Start listening on a port (default: 5000 or from environment variable)
   await app.listen(process.env.PORT ?? 5000);
 }

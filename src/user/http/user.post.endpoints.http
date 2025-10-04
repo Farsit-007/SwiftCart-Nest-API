@@ -1,8 +1,9 @@
 POST http://localhost:5000/users/register
 Content-Type : application/json
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJlMTA2NjViLTdmYjEtNDcxYS1hZTg5LTI3Mjk5NDkwMTBmZSIsImVtYWlsIjoicm9iYXlhc2R0MWQ2MUBnbWFpbC5jb20iLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1OTU1MjUzNSwiZXhwIjoxNzU5NTU2MTM1LCJhdWQiOiJsb2NhbGhvc3Q6NTAwMCIsImlzcyI6ImxvY2FsaG9zdDo1MDAwIn0.vBHykBrlLwlOEDmFxyNDmlDNYLd7UjZi53S-XT65-V4
 
 {
     "name" : "Farsit",
-    "email" : "robayasdt1d61@gmail.com",
+    "email" : "robayasdtsdf1dd61@gmail.com",
     "password" : "Farsit@2025"
 }
