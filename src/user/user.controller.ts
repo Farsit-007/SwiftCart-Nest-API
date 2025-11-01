@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
@@ -7,6 +7,7 @@ import { ResponseMessage } from 'src/common/decorators/response-message.decorato
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { UserRole } from '@prisma/client';
 import { RolesGuard } from 'src/auth/guards/auth/roles.guard';
+import { BaseQueryDto } from 'src/common/queryBuilder/dtos/base-query.dto';
 
 @Controller('users')
 export class UserController {
@@ -25,7 +26,7 @@ export class UserController {
   @Auth(AuthType.None)
   @Roles(UserRole.ADMIN)
   @ResponseMessage('Users retriveted successfully')
-  public getAllUser() {
-    return this.userService.findAllUsers();
+  public getAllUser(@Query() query: BaseQueryDto) {
+    return this.userService.findAllUsers(query);
   }
 }
